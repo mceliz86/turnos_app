@@ -12,7 +12,8 @@ var express			= require("express"),
 	
 //APP CONFIG	
 //mongoose.connect("mongodb://localhost:27017/turnos_app", { useNewUrlParser: true });
-mongoose.connect("mongodb://matias:password1@ds151293.mlab.com:51293/turnos_app", { useNewUrlParser: true });
+//mongoose.connect("mongodb://matias:password1@ds151293.mlab.com:51293/turnos_app", { useNewUrlParser: true });
+mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
