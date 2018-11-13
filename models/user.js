@@ -1,10 +1,10 @@
 var mongoose = require("mongoose");
 
 var usersSchema = new mongoose.Schema({
-		nombre: String,
-		apellido: String,
-		email: String,
-		password: String,
+		nombre: {type: String, max: 25, required: true},
+		apellido: {type: String, max: 25, required: true},
+		email: {type: String, unique: true, required: true},
+		password: {type: String, required: true},
 		isAdmin: {type: Boolean, default: false},
 		turnos: [
 		{

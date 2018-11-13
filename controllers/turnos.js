@@ -5,6 +5,7 @@ var User		= require("../models/user");
 var middleware	= require("../middleware/authentication");
 var config		= require('../config');
 var service 	= require("../services");
+var moment		= require("moment");
 
 
 //TURNOS del usuario logueado
@@ -32,9 +33,27 @@ router.post("/", middleware.ensureAuthenticated, function(req, res) {
 			.send({message: "no se encontro usuario"});
 		}else{
 			var data = req.body;
-			var fecha	= data.fecha,
-				horario = data.horario,
+			var fecha	= (data.fecha).val(),
+				horario = (data.horario).val(),
 				medico	= data.medico;
+			
+			if(!moment(fecha,'DD-MM-YYYY').isValid()){
+			    return res
+			    .status(400)
+			    .send({messageDate: "La fecha no es valida"});
+			}
+			
+			if(!moment(horario,'HH:mm').isValid()){
+			    return res
+			    .status(400)
+			    .send({messageDate: "La fecha no es valida"});
+			}
+			
+			if(data.medico.length()>25){
+				return res
+				.status(400)
+				.send({messageMedico: "Medico no debe superar los 25 caracteres"});
+			}
 				
 			var newTurno = {fecha: fecha, horario: horario, medico: medico};
 			Turno.create(newTurno, function(err, turno){
