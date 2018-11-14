@@ -1,9 +1,9 @@
 var mongoose	= require("mongoose");
 
 var turnosSchema = new mongoose.Schema({
-		fecha: {type: Date, required: true},
-		horario: {type: Date, required: true},
-		medico: {type: String, max: 25, required: true},
+		fecha: Date,
+		horario: Date,
+		medico: String,
 		usuario: {
 			id:{
 				type: mongoose.Schema.Types.ObjectId,
