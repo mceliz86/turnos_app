@@ -33,8 +33,8 @@ router.post("/", middleware.ensureAuthenticated, function(req, res) {
 			.send({message: "no se encontro usuario"});
 		}else{
 			var data = req.body;
-			var fecha	= (data.fecha).val(),
-				horario = (data.horario).val(),
+			var fecha	= data.fecha,
+				horario = data.horario,
 				medico	= data.medico;
 			
 			if(!moment(fecha,'DD-MM-YYYY').isValid()){
