@@ -51,11 +51,11 @@ router.post("/", middleware.ensureAuthenticated, function(req, res) {
             	.send({message: "mal hora"});
         	}
         	
-        	if(medico.length()>25){
-        		return res
-        		.status(400)
-        		.send({message: "nombre medico largo"});
-        	}
+        	// if(medico.length()>25){
+        	// 	return res
+        	// 	.status(400)
+        	// 	.send({message: "nombre medico largo"});
+        	// }
 			
 			var newTurno = {fecha: fecha, horario: horario, medico: medico};
 			Turno.create(newTurno, function(err, turno){
