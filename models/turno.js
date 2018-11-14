@@ -1,8 +1,8 @@
 var mongoose	= require("mongoose");
 
 var turnosSchema = new mongoose.Schema({
-		fecha: Date,
-		horario: Date,
+		fecha: String,
+		horario: String,
 		medico: String,
 		usuario: {
 			id:{

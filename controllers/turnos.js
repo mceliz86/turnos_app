@@ -32,7 +32,7 @@ router.post("/", middleware.ensureAuthenticated, function(req, res) {
 			.status(404)
 			.send({message: "no se encontro usuario"});
 		}else{
-			var data = req.body;
+			var data	= req.body;
 			var fecha	= data.fecha,
 				horario = data.horario,
 				medico	= data.medico;
