@@ -104,11 +104,36 @@ router.get("/:id", function(req, res) {
 //UPDATE - lógica del formulario de edición del turno
 router.put("/:id", function(req, res){
 	var data = req.body;
+	var fecha	= data.fecha,
+		horario = data.horario,
+		medico	= data.medico;
+	
 	var object = {
 		fecha: data.fecha,
 		horario: data.horario,
 		medico: data.medico
 		};
+		
+		var validDate = moment(fecha, "DD-MM-YYYY");
+			if(!validDate.isValid()){
+				return res
+				.status(400)
+				.send({message: "Debe ingresar fecha válida en este formato: dia/mes/año"});
+			}
+			
+			var validTime = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(horario);
+        	if (!validTime) {
+            	return res
+            	.status(400)
+            	.send({message: "Debe ingresar una hora válida"});
+        	}
+        	
+        	if(medico.length>25){
+        		return res
+        		.status(400)
+        		.send({message: "El nombre del medico no debe superar los 25 caracteres"});
+        	}
+		
 	Turno.findByIdAndUpdate(req.params.id, object, function(err, turno){
 		if(err){
 			return res
