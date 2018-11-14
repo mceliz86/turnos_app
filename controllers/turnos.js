@@ -37,24 +37,13 @@ router.post("/", middleware.ensureAuthenticated, function(req, res) {
 				horario = data.horario,
 				medico	= data.medico;
 			
-			if(!moment(fecha,'DD-MM-YYYY').isValid()){
-			    return res
-			    .status(400)
-			    .send({messageDate: "La fecha no es valida"});
-			}
-			
-			if(!moment(horario,'HH:mm').isValid()){
-			    return res
-			    .status(400)
-			    .send({messageDate: "La fecha no es valida"});
-			}
-			
-			if(data.medico.length()>25){
+			var date = Date.parse(fecha);
+			if(isNaN(date)){
 				return res
 				.status(400)
-				.send({messageMedico: "Medico no debe superar los 25 caracteres"});
+				.send({message: "mal fecha"});
 			}
-				
+			
 			var newTurno = {fecha: fecha, horario: horario, medico: medico};
 			Turno.create(newTurno, function(err, turno){
 				if(err){
