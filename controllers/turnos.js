@@ -37,24 +37,31 @@ router.post("/", middleware.ensureAuthenticated, function(req, res) {
 				horario = data.horario,
 				medico	= data.medico;
 			
-			var validDate = Date.parse(fecha);
-			if(isNaN(validDate)){
+			// var validDate = Date.parse(fecha);
+			// if(isNaN(validDate)){
+			// 	return res
+			// 	.status(400)
+			// 	.send({message: "Debe ingresar fecha válida en este formato: dia/mes/año"});
+			// }
+			
+			var validDate = moment(fecha, "DD-MM-YYYY");
+			if(!validDate.isValid()){
 				return res
 				.status(400)
-				.send({message: "mal fecha"});
+				.send({message: "Debe ingresar fecha válida en este formato: dia/mes/año"});
 			}
 			
 			var validTime = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(horario);
         	if (!validTime) {
             	return res
             	.status(400)
-            	.send({message: "mal hora"});
+            	.send({message: "Debe ingresar una hora válida"});
         	}
         	
         	if(medico.length>25){
         		return res
         		.status(400)
-        		.send({message: "nombre medico largo"});
+        		.send({message: "El nombre del medico no debe superar los 25 caracteres"});
         	}
 			
 			var newTurno = {fecha: fecha, horario: horario, medico: medico};
