@@ -107,13 +107,7 @@ router.put("/:id", function(req, res){
 	var fecha	= data.fecha,
 		horario = data.horario,
 		medico	= data.medico;
-	
-	var object = {
-		fecha: data.fecha,
-		horario: data.horario,
-		medico: data.medico
-		};
-		
+
 		var validDate = moment(fecha, "DD-MM-YYYY");
 			if(!validDate.isValid()){
 				return res
@@ -133,6 +127,12 @@ router.put("/:id", function(req, res){
         		.status(400)
         		.send({message: "El nombre del medico no debe superar los 25 caracteres"});
         	}
+        	
+        	var object = {
+			fecha: data.fecha,
+			horario: data.horario,
+			medico: data.medico
+			};
 		
 	Turno.findByIdAndUpdate(req.params.id, object, function(err, turno){
 		if(err){
