@@ -1,17 +1,21 @@
 var express		= require("express");
 var router		= express.Router();
 var User		= require("../models/user");
-//var Turno		= require("../models/turno");
 var service 	= require("../services");
 
 
 //Registro
 router.post("/user", function(req, res){
+	var data		= req.body;
+	var nombre		= data.nombre,
+		apellido	= data.apellido,
+		email		= data.email,
+		password	= data.password;
 	var newUser = new User({
-		nombre: req.body.nombre,
-		apellido: req.body.apellido,
-		email: req.body.email,
-		password: req.body.password
+		nombre: nombre,
+		apellido: apellido,
+		email: email,
+		password: password
 	});
 	
 	newUser.save(function(err){
